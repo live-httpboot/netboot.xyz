@@ -1,0 +1,31 @@
+#!ipxe
+
+# Ubuntu Operating System
+# http://www.ubuntu.org
+#
+# Booted via HTTPFS2
+# https://github.com/live-httpboot
+
+goto ${menu}
+
+:liveubuntu
+set os Ubuntu Live
+clear ubuntu_version
+set ubuntu_mirror ${mirror}
+menu ${os} - ${arch_a} - Image Sig Checks: [${img_sigs_enabled}]
+item zesty ${space} ${os} 17.04 Zesty Zapus
+item xenial ${space} ${os} 16.04 LTS Xenial Xerus
+item trusty ${space} ${os} 14.04 LTS Trusty Tahr
+choose ubuntu_version || goto ubuntu_exit
+iseq ${ubuntu_version} trusty && set httpboot_version 14.04.1 ||
+iseq ${ubuntu_version} xenial && set httpboot_version 16.04 ||
+iseq ${ubuntu_version} zesty && set httpboot_version 17.04 ||
+imgfree
+nslookup release_host_ip releases.ubuntu.com || set release_host_ip 91.189.88.160
+kernel http://live-httpboot.sourceforge.net/ubuntu/0.2/${ubuntu_version}_${httpboot_version}_${arch_a}_vmlinuz root=/dev/nfs boot=casper hostsentry=${release_host_ip}:releases.ubuntu.com netboot=http nfsroot=http://releases.ubuntu.com/${ubuntu_version}/ubuntu-${httpboot_version}-desktop-${arch_a}.iso --
+initrd http://live-httpboot.sourceforge.net/ubuntu/0.2/${ubuntu_version}_${httpboot_version}_${arch_a}_initrd.lz
+boot
+
+:ubuntu_exit
+clear menu
+exit 0

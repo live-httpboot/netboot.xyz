@@ -8,6 +8,7 @@ iseq ${arch} x86_64 && set arch_a amd64 || set arch_a ${arch}
 item --gap Live Boot Distributions
 item livedebian ${space} Debian Live
 item livegrml ${space} Grml Live
+item liveubuntu ${space} Ubuntu Live (HTTPFS2)
 choose menu || goto live_exit
 echo ${cls}
 goto ${menu} ||
