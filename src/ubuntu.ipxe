@@ -36,7 +36,7 @@ set dir ubuntu/dists/${ubuntu_version}/main/installer-${arch_a}/current/images/n
 set httpboot_version NONE
 iseq ${ubuntu_version} trusty && set httpboot_version 14.04.1 ||
 iseq ${ubuntu_version} xenial && set httpboot_version 16.04 ||
-iseq ${ubuntu_version} yakkety && set httpboot_version 16.10 ||
+iseq ${ubuntu_version} zesty && set httpboot_version 17.04 ||
 
 :deb_boot_type
 menu ${os} [${ubuntu_version}] Installer
